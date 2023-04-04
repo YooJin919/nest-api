@@ -62,7 +62,7 @@ export class PostController {
   }
 
   @Delete('post/:id')
-  deleteOnePost(@Param('id') id: number): string {
-    return `deleteOnePost ${id}`;
+  deleteOnePost(@Param('id', ParseIntPipe) id: number): Promise<prismaPost> {
+    return this.postService.deleteOnePost(id);
   }
 }

@@ -29,4 +29,10 @@ export class PostService {
       orderBy: { [orderField]: orderDirection },
     });
   }
+
+  async deleteOnePost(id: number): Promise<prismaPost> {
+    return this.prisma.post.delete({
+      where: { id },
+    });
+  }
 }

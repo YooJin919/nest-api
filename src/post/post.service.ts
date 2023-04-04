@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dto/create.post.dto';
 import { PrismaService } from 'prisma/prisma.service';
 import { Post as prismaPost } from '@prisma/client';
+import { UpdatePostDto } from './dto/update.post.dto';
 
 @Injectable()
 export class PostService {
@@ -27,6 +28,15 @@ export class PostService {
       take: pageSize,
       skip: pageSize * (page - 1),
       orderBy: { [orderField]: orderDirection },
+    });
+  }
+
+  async updatePost(id: number, body: UpdatePostDto): Promise<prismaPost> {
+    return this.prisma.post.update({
+      where: {
+        id,
+      },
+      data: body,
     });
   }
 

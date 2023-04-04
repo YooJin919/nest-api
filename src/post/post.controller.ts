@@ -13,6 +13,7 @@ import {
 import { CreatePostDto } from './dto/create.post.dto';
 import { PostService } from './post.service';
 import { Post as prismaPost } from '@prisma/client';
+import { UpdatePostDto } from './dto/update.post.dto';
 
 @Controller()
 export class PostController {
@@ -55,10 +56,11 @@ export class PostController {
   }
 
   @Put('post/:id')
-  updatePost(@Param('id') id: number, @Body() body): string {
-    const { title, author, content, thumbnail } = body;
-    console.log(id, title, author, content, thumbnail);
-    return `updatePost ${id}, ${title}`;
+  updatePost(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: UpdatePostDto,
+  ): Promise<prismaPost> {
+    return this.postService.updatePost(id, body);
   }
 
   @Delete('post/:id')

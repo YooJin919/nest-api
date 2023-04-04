@@ -1,20 +1,19 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { Posts } from './entity/post.entity';
+import { Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dto/create.post.dto';
+import { PrismaService } from 'prisma/prisma.service';
+import { Post as prismaPost } from '@prisma/client';
 
 @Injectable()
 export class PostService {
-  private Posts: Posts[] = [];
+  constructor(private readonly prisma: PrismaService) {}
 
-  getOnePost(id: number): Posts {
-    const post = this.Posts.find((post) => post.id === id);
-    if (!post) {
-      throw new NotFoundException(`Post with id ${id} not found.`);
-    }
-    return post;
+  async getOnePost(id: number): Promise<prismaPost> {
+    return this.prisma.post.findUnique({
+      where: { id },
+    });
   }
 
-  createPost(body: CreatePostDto): Posts {
-    console.log(body);
+  async createPost(createData): Promise<prismaPost> {
+    return this.prisma.post.create({ data: createData });
   }
 }

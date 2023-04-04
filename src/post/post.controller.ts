@@ -25,12 +25,17 @@ export class PostController {
 
   @Get('posts')
   getPosts(
-    @Query('page') page: number,
-    @Query('pageSize') pageSize: number,
+    @Query('page', ParseIntPipe) page: number,
+    @Query('pageSize', ParseIntPipe) pageSize: number,
     @Query('orderField') orderField: string,
     @Query('orderDirection') orderDirection: string,
-  ): string {
-    return `getPosts ${page} ${pageSize} ${orderField} ${orderDirection}`;
+  ): Promise<prismaPost[]> {
+    return this.postService.getPosts(
+      page,
+      pageSize,
+      orderField,
+      orderDirection,
+    );
   }
 
   @Post('post')

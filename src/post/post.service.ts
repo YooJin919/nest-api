@@ -13,7 +13,20 @@ export class PostService {
     });
   }
 
-  async createPost(createData): Promise<prismaPost> {
+  async createPost(createData: CreatePostDto): Promise<prismaPost> {
     return this.prisma.post.create({ data: createData });
+  }
+
+  async getPosts(
+    page,
+    pageSize,
+    orderField,
+    orderDirection,
+  ): Promise<prismaPost[]> {
+    return this.prisma.post.findMany({
+      take: pageSize,
+      skip: pageSize * (page - 1),
+      orderBy: { [orderField]: orderDirection },
+    });
   }
 }

@@ -3,6 +3,7 @@ import { CreatePostDto } from './dto/create.post.dto';
 import { PrismaService } from 'prisma/prisma.service';
 import { Post as prismaPost } from '@prisma/client';
 import { UpdatePostDto } from './dto/update.post.dto';
+import { GetPostsDto } from './dto/get.posts.dto';
 
 @Injectable()
 export class PostService {
@@ -18,16 +19,11 @@ export class PostService {
     return this.prisma.post.create({ data: createData });
   }
 
-  async getPosts(
-    page,
-    pageSize,
-    orderField,
-    orderDirection,
-  ): Promise<prismaPost[]> {
+  async getPosts(getPostsDto: GetPostsDto): Promise<prismaPost[]> {
     return this.prisma.post.findMany({
-      take: pageSize,
-      skip: pageSize * (page - 1),
-      orderBy: { [orderField]: orderDirection },
+      take: getPostsDto.pageSize,
+      skip: getPostsDto.pageSize * (getPostsDto.page - 1),
+      orderBy: { [getPostsDto.orderField]: getPostsDto.orderDirection },
     });
   }
 

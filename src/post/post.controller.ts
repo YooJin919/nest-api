@@ -14,27 +14,27 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { GetPostsDto } from './dto/get-posts.dto';
 
-@Controller()
+@Controller('post')
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
-  @Get('post/:id')
+  @Get('/:id')
   getPost(@Param('id') id: number): Promise<Posts | null> {
     return this.postService.getPost(id);
   }
 
-  @Get('posts')
+  @Get()
   getPosts(@Query() getPostsDto: GetPostsDto): Promise<Posts[] | null> {
     return this.postService.getPosts(getPostsDto);
   }
 
-  @Post('post')
+  @Post()
   createPost(@Body() postData: CreatePostDto): Promise<Posts> {
     const result = this.postService.createPost(postData);
     return result;
   }
 
-  @Put('post/:id')
+  @Put('/:id')
   updatePost(
     @Param('id') id: number,
     @Body() body: UpdatePostDto,
@@ -42,7 +42,7 @@ export class PostController {
     return this.postService.updatePost(id, body);
   }
 
-  @Delete('post/:id')
+  @Delete('/:id')
   deletePost(@Param('id') id: number): Promise<Posts> {
     return this.postService.deletePost(id);
   }

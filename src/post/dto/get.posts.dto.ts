@@ -1,7 +1,7 @@
 import { Transform } from 'class-transformer';
 import { IsString, IsNotEmpty, IsInt, IsEnum } from 'class-validator';
-import { OrderField } from '../enums/order-field.enum';
-import { OrderDirection } from '../enums/order-direction.enum';
+import { OrderField } from '../../enums/order-field.enum';
+import { OrderDirection } from '../../enums/order-direction.enum';
 
 export class GetPostsDto {
   @IsNotEmpty()

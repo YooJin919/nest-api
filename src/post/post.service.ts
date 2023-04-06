@@ -9,17 +9,18 @@ import { GetPostsDto } from './dto/get-posts.dto';
 export class PostService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getPost(id: number): Promise<Posts> {
-    return this.prisma.post.findUnique({
+  async getPost(id: number): Promise<Posts | null> {
+    const result = this.prisma.post.findUnique({
       where: { id },
     });
+    return result;
   }
 
   async createPost(createData: CreatePostDto): Promise<Posts> {
     return this.prisma.post.create({ data: createData });
   }
 
-  async getPosts(getPostsDto: GetPostsDto): Promise<Posts[]> {
+  async getPosts(getPostsDto: GetPostsDto): Promise<Posts[] | null> {
     return this.prisma.post.findMany({
       take: getPostsDto.pageSize,
       skip: getPostsDto.pageSize * (getPostsDto.page - 1),

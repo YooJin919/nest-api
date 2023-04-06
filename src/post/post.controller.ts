@@ -19,12 +19,12 @@ export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @Get('post/:id')
-  getPost(@Param('id') id: number): Promise<Posts> {
+  getPost(@Param('id') id: number): Promise<Posts | null> {
     return this.postService.getPost(id);
   }
 
   @Get('posts')
-  getPosts(@Query() getPostsDto: GetPostsDto): Promise<Posts[]> {
+  getPosts(@Query() getPostsDto: GetPostsDto): Promise<Posts[] | null> {
     return this.postService.getPosts(getPostsDto);
   }
 

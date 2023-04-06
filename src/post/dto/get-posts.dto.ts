@@ -17,14 +17,16 @@ export class GetPostsDto {
   @IsNotEmpty()
   @IsString()
   @IsEnum(OrderField)
-  @Transform(({ value }) => (value in OrderField ? value : OrderField.TITLE))
+  @Transform(({ value }) =>
+    value.toUpperCase() in OrderField ? value : OrderField.TITLE,
+  )
   orderField: string;
 
   @IsNotEmpty()
   @IsString()
   @IsEnum(OrderDirection)
   @Transform(({ value }) =>
-    value in OrderDirection ? value : OrderDirection.ASC,
+    value.toUpperCase() in OrderDirection ? value : OrderDirection.ASC,
   )
   orderDirection: string;
 }

@@ -9,7 +9,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { PostService } from './post.service';
-import { Post as prismaPost } from '@prisma/client';
+import { Posts } from './entity/post.entity';
 import { CreatePostDto } from './dto/create.post.dto';
 import { UpdatePostDto } from './dto/update.post.dto';
 import { GetPostsDto } from './dto/get.posts.dto';
@@ -19,17 +19,17 @@ export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @Get('post/:id')
-  getOnePost(@Param('id') id: number): Promise<prismaPost> {
+  getOnePost(@Param('id') id: number): Promise<Posts> {
     return this.postService.getOnePost(id);
   }
 
   @Get('posts')
-  getPosts(@Query() getPostsDto: GetPostsDto): Promise<prismaPost[]> {
+  getPosts(@Query() getPostsDto: GetPostsDto): Promise<Posts[]> {
     return this.postService.getPosts(getPostsDto);
   }
 
   @Post('post')
-  postOnePost(@Body() postData: CreatePostDto): Promise<prismaPost> {
+  postOnePost(@Body() postData: CreatePostDto): Promise<Posts> {
     const result = this.postService.createPost(postData);
     return result;
   }
@@ -38,12 +38,12 @@ export class PostController {
   updatePost(
     @Param('id') id: number,
     @Body() body: UpdatePostDto,
-  ): Promise<prismaPost> {
+  ): Promise<Posts> {
     return this.postService.updatePost(id, body);
   }
 
   @Delete('post/:id')
-  deleteOnePost(@Param('id') id: number): Promise<prismaPost> {
+  deleteOnePost(@Param('id') id: number): Promise<Posts> {
     return this.postService.deleteOnePost(id);
   }
 }

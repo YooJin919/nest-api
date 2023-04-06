@@ -29,7 +29,7 @@ export class PostController {
   }
 
   @Post('post')
-  postOnePost(@Body() postData: CreatePostDto): Promise<Posts> {
+  createPost(@Body() postData: CreatePostDto): Promise<Posts> {
     const result = this.postService.createPost(postData);
     return result;
   }

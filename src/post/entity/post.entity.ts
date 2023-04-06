@@ -1,19 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Post } from '@prisma/client';
 
-@Entity()
-export class Posts {
-  @PrimaryGeneratedColumn()
+export class Posts implements Post {
   id: number;
-
-  @Column()
   title: string;
-
-  @Column()
-  author: number;
-
-  @Column()
+  author: string;
+  content: string;
   thumbnail: string;
-
-  @Column()
   createdAt: Date;
 }

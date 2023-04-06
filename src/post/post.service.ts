@@ -9,7 +9,7 @@ import { GetPostsDto } from './dto/get.posts.dto';
 export class PostService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getOnePost(id: number): Promise<Posts> {
+  async getPost(id: number): Promise<Posts> {
     return this.prisma.post.findUnique({
       where: { id },
     });
@@ -36,7 +36,7 @@ export class PostService {
     });
   }
 
-  async deleteOnePost(id: number): Promise<Posts> {
+  async deletePost(id: number): Promise<Posts> {
     return this.prisma.post.delete({
       where: { id },
     });

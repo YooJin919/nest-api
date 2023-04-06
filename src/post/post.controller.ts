@@ -19,8 +19,8 @@ export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @Get('post/:id')
-  getOnePost(@Param('id') id: number): Promise<Posts> {
-    return this.postService.getOnePost(id);
+  getPost(@Param('id') id: number): Promise<Posts> {
+    return this.postService.getPost(id);
   }
 
   @Get('posts')
@@ -43,7 +43,7 @@ export class PostController {
   }
 
   @Delete('post/:id')
-  deleteOnePost(@Param('id') id: number): Promise<Posts> {
-    return this.postService.deleteOnePost(id);
+  deletePost(@Param('id') id: number): Promise<Posts> {
+    return this.postService.deletePost(id);
   }
 }

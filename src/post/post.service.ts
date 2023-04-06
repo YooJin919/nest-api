@@ -10,7 +10,7 @@ export class PostService {
   constructor(private readonly prisma: PrismaService) {}
 
   async getPost(id: number): Promise<Posts | null> {
-    const result = this.prisma.post.findUnique({
+    const result = await this.prisma.post.findUnique({
       where: { id },
     });
     return result;
